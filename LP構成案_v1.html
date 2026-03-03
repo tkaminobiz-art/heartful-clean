@@ -111,11 +111,26 @@ ul, ol { list-style: none; }
   background: var(--accent);
   color: #fff;
   box-shadow: 0 4px 16px rgba(230, 126, 34, 0.3);
+  position: relative;
+}
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 6px;
+  background: var(--accent);
+  opacity: 0;
+  filter: blur(12px);
+  z-index: -1;
+  transition: opacity 400ms var(--ease);
 }
 .btn--primary:hover {
   background: var(--accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(230, 126, 34, 0.4);
+  box-shadow: 0 8px 32px rgba(230, 126, 34, 0.45);
+}
+.btn--primary:hover::after {
+  opacity: 0.4;
 }
 
 .btn--outline {
@@ -164,19 +179,50 @@ ul, ol { list-style: none; }
   text-align: center;
 }
 
+/* ===== Noise Texture (2026 Craft Feel) ===== */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
 /* ===== Scroll Animation ===== */
 .fade-in {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+  transform: translateY(24px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
 }
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
+.reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 800ms var(--ease), transform 800ms var(--ease);
+}
+.reveal-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mask-in {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 800ms var(--ease);
+}
+.mask-in.visible {
+  clip-path: inset(0 0% 0 0);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .fade-in { opacity: 1; transform: none; transition: none; }
+  .fade-in, .reveal-up { opacity: 1; transform: none; transition: none; }
+  .mask-in { clip-path: none; transition: none; }
 }
 
 /* ========================================
@@ -517,6 +563,78 @@ ul, ol { list-style: none; }
 }
 
 /* ========================================
+   PROMISE
+======================================== */
+.promise {
+  padding: clamp(48px, 6vw, 80px) 0;
+  background: var(--bg);
+}
+
+.promise__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.promise__card {
+  background: #fff;
+  padding: clamp(28px, 3.5vw, 40px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+  border-top: 3px solid var(--primary);
+}
+
+.promise__number {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(44px, 6vw, 64px);
+  font-weight: 300;
+  color: var(--primary);
+  line-height: 1;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.promise__arrow {
+  font-size: 0.45em;
+  vertical-align: middle;
+  margin: 0 4px;
+  opacity: 0.4;
+}
+
+.promise__unit {
+  font-size: 0.35em;
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+.promise__icon {
+  color: var(--primary);
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+
+.promise__title {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.promise__desc {
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+
+@media (max-width: 520px) {
+  .promise__grid { grid-template-columns: 1fr; }
+}
+
+/* ========================================
    CTA BAND (中間CTA)
 ======================================== */
 .cta-band {
@@ -579,8 +697,21 @@ ul, ol { list-style: none; }
 
 .services__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
   gap: 16px;
+}
+
+.services__grid .service-card:nth-child(1) { grid-column: span 2; }
+.services__grid .service-card:nth-child(3) { grid-column: span 2; }
+
+@media (max-width: 900px) {
+  .services__grid { grid-template-columns: repeat(2, 1fr); }
+  .services__grid .service-card:nth-child(1),
+  .services__grid .service-card:nth-child(3) { grid-column: span 1; }
+}
+@media (max-width: 520px) {
+  .services__grid { grid-template-columns: 1fr; }
 }
 
 .service-card {
@@ -842,6 +973,10 @@ ul, ol { list-style: none; }
   grid-template-columns: 2fr 3fr;
   gap: clamp(32px, 5vw, 80px);
   align-items: start;
+}
+
+@media (min-width: 769px) {
+  .representative__photo { position: sticky; top: 96px; }
 }
 
 .representative__photo {
@@ -1223,6 +1358,9 @@ ul, ol { list-style: none; }
 </head>
 <body>
 
+<div class="noise-overlay" aria-hidden="true"></div>
+<main>
+
 <!-- ====== HEADER ====== -->
 <header class="header">
   <div class="header__inner">
@@ -1272,7 +1410,7 @@ ul, ol { list-style: none; }
         </span>
       </div>
 
-      <h1 class="fv__heading fade-in">
+      <h1 class="fv__heading mask-in">
         見積りのあとに、<br>金額は変わりません。
       </h1>
 
@@ -1394,18 +1532,20 @@ ul, ol { list-style: none; }
 </section>
 
 <!-- ====== PROMISE (礼節とスピード) ====== -->
-<section style="padding:clamp(48px,6vw,80px) 0;background:var(--bg);">
+<section class="promise">
   <div class="wrapper">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:800px;margin:0 auto;">
-      <div class="fade-in" style="background:#fff;padding:clamp(24px,3vw,36px);border-radius:var(--radius);box-shadow:var(--shadow);text-align:center;">
-        <div style="font-family:'Inter',sans-serif;font-size:clamp(40px,5vw,56px);font-weight:300;color:var(--primary);line-height:1;margin-bottom:12px;">3<span style="font-size:0.5em;vertical-align:middle;margin-left:2px;">日→</span>1<span style="font-size:0.4em;vertical-align:middle;margin-left:2px;">日</span></div>
-        <div style="font-size:15px;font-weight:500;margin-bottom:8px;">他社3日の現場を、1日で完了。</div>
-        <div style="font-size:13px;color:var(--text-light);line-height:1.7;">丁寧さを犠牲にしない。スピードは、お客様の負担を減らすためのものです。</div>
+    <div class="promise__grid">
+      <div class="promise__card reveal-up">
+        <div class="promise__number">3<span class="promise__arrow">→</span>1<span class="promise__unit">日</span></div>
+        <h3 class="promise__title">他社3日の現場を、1日で完了。</h3>
+        <p class="promise__desc">丁寧さを犠牲にしない。スピードは、お客様の負担を減らすためのものです。</p>
       </div>
-      <div class="fade-in" style="background:#fff;padding:clamp(24px,3vw,36px);border-radius:var(--radius);box-shadow:var(--shadow);text-align:center;">
-        <div style="font-size:clamp(36px,4.5vw,48px);line-height:1;margin-bottom:12px;">🥿</div>
-        <div style="font-size:15px;font-weight:500;margin-bottom:8px;">「土足でいい」と言われても、<br>必ず靴を脱ぎます。</div>
-        <div style="font-size:13px;color:var(--text-light);line-height:1.7;">故人の家への敬意。言葉遣い、遺品の扱い、すべてに礼節を尽くします。</div>
+      <div class="promise__card reveal-up">
+        <div class="promise__icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+        </div>
+        <h3 class="promise__title">「土足でいい」と言われても、<br>必ず靴を脱ぎます。</h3>
+        <p class="promise__desc">故人の家への敬意。言葉遣い、遺品の扱い、すべてに礼節を尽くします。</p>
       </div>
     </div>
   </div>
@@ -1809,6 +1949,7 @@ ul, ol { list-style: none; }
 <footer class="footer">
   <p class="footer__copy">&copy; 2026 ハートフルクリーン（株式会社和）All Rights Reserved.</p>
 </footer>
+</main>
 
 <!-- ====== FLOATING CTA (MOBILE) ====== -->
 <div class="floating-cta" id="floatingCta">
@@ -1838,12 +1979,12 @@ ul, ol { list-style: none; }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.fade-in').forEach((el, i) => {
+  document.querySelectorAll('.fade-in, .reveal-up, .mask-in').forEach((el, i) => {
     const parent = el.closest('.problem__list, .services__grid, .testimonials__grid, .faq__list, .reasons__grid, .flow__steps');
     if (parent) {
-      const siblings = Array.from(parent.querySelectorAll('.fade-in'));
+      const siblings = Array.from(parent.querySelectorAll('.fade-in, .reveal-up'));
       const idx = siblings.indexOf(el);
-      el.dataset.delay = idx * 80;
+      if (idx >= 0) el.dataset.delay = idx * 80;
     }
     observer.observe(el);
   });
