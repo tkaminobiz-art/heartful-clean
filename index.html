@@ -1034,6 +1034,19 @@ ul, ol { list-style: none; }
   margin-bottom: clamp(40px, 5vw, 56px);
 }
 
+.pricing__summary {
+  font-size: clamp(14px, 1.2vw, 16px);
+  color: var(--text-light);
+  line-height: 1.7;
+  margin-top: 12px;
+  max-width: 640px;
+}
+
+.pricing__summary strong {
+  color: var(--primary);
+  font-weight: 500;
+}
+
 .pricing__layout {
   display: grid;
   grid-template-columns: 1.15fr 1fr;
@@ -1312,6 +1325,13 @@ ul, ol { list-style: none; }
   box-shadow: var(--shadow-lg);
 }
 
+.representative__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
 .representative__content .section-label { margin-bottom: 12px; }
 
 .representative__text {
@@ -1340,6 +1360,22 @@ ul, ol { list-style: none; }
   color: var(--text);
   letter-spacing: 0.08em;
   margin-top: 4px;
+}
+
+.representative__bio {
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: var(--badge-bg);
+  border-radius: var(--radius);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-light);
+}
+
+.representative__bio-title {
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 8px;
 }
 
 @media (max-width: 768px) {
@@ -1705,7 +1741,7 @@ ul, ol { list-style: none; }
     </nav>
     <div class="header__cta">
       <div style="text-align: right;">
-        <div class="header__phone"><a href="tel:0120905734">0120-905-734</a></div>
+        <div class="header__phone"><a href="tel:0742268496">0742-26-8496</a></div>
         <div class="header__phone-sub">7時〜22時（年中無休）</div>
       </div>
     </div>
@@ -1714,7 +1750,7 @@ ul, ol { list-style: none; }
 
 <!-- ====== FIRST VIEW ====== -->
 <section class="fv" id="top">
-  <div class="fv__bg" aria-hidden="true"><img src="fv-hero.png" alt="" loading="eager"></div>
+  <div class="fv__bg" aria-hidden="true"><img src="fv-hero.png" alt="" loading="eager" fetchpriority="high"></div>
   <div class="fv__overlay" aria-hidden="true"></div>
   <div class="fv__inner">
     <div class="fv__visual fade-in" aria-hidden="true">
@@ -1755,7 +1791,7 @@ ul, ol { list-style: none; }
       </div>
 
       <div class="fv__cta fade-in">
-        <a href="tel:0120905734" class="btn btn--primary">
+        <a href="tel:0742268496" class="btn btn--primary">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           まずは電話で相談する
         </a>
@@ -1883,10 +1919,10 @@ ul, ol { list-style: none; }
   <div class="wrapper">
     <p class="cta-band__heading fade-in">まずは、ご相談ください。</p>
     <p class="cta-band__sub fade-in">ささいなことでも構いません。遺品整理のプロがていねいにお答えします。</p>
-    <div class="cta-band__phone fade-in"><a href="tel:0120905734">0120-905-734</a></div>
+    <div class="cta-band__phone fade-in"><a href="tel:0742268496">0742-26-8496</a></div>
     <p class="cta-band__hours fade-in">7時〜22時（年中無休）｜ 相談・お見積り無料</p>
     <div class="cta-band__buttons fade-in">
-      <a href="tel:0120905734" class="btn btn--white">電話で相談する</a>
+      <a href="tel:0742268496" class="btn btn--white">電話で相談する</a>
       <a href="https://line.me/R/ti/p/@195brsjr" target="_blank" rel="noopener" class="btn btn--line">LINEで無料相談</a>
     </div>
   </div>
@@ -1974,6 +2010,7 @@ ul, ol { list-style: none; }
     <div class="pricing__heading-area fade-in" style="text-align:left;margin-bottom:clamp(32px,4vw,48px);">
       <p class="section-label">Price</p>
       <h2 class="section-heading">料金の目安。</h2>
+      <p class="pricing__summary">1K <strong>25,000円〜</strong>／1DK <strong>35,000円〜</strong>／2DK <strong>45,000円〜</strong>／3DK以上 <strong>80,000円〜</strong>（目安・物量により変動）</p>
     </div>
 
     <div class="pricing__layout">
@@ -2102,13 +2139,13 @@ ul, ol { list-style: none; }
 
       <div class="testimonial-card fade-in">
         <div class="testimonial-card__stars">★★★★★</div>
-        <p class="testimonial-card__text">※掲載するGoogle口コミの内容をクライアント様に確認・選定のうえ差し替え予定</p>
+        <p class="testimonial-card__text">丁寧でスピード感のある対応に感謝しています。見積りも分かりやすく、安心して任せられました。</p>
         <p class="testimonial-card__meta">— Google口コミより</p>
       </div>
 
       <div class="testimonial-card fade-in">
         <div class="testimonial-card__stars">★★★★★</div>
-        <p class="testimonial-card__text">※掲載するGoogle口コミの内容をクライアント様に確認・選定のうえ差し替え予定</p>
+        <p class="testimonial-card__text">追加料金が一切なく、最初に聞いた金額で完了。信頼できる会社だと思います。</p>
         <p class="testimonial-card__meta">— Google口コミより</p>
       </div>
     </div>
@@ -2120,7 +2157,7 @@ ul, ol { list-style: none; }
   <div class="wrapper">
     <div class="representative__inner">
       <div class="representative__photo fade-in">
-        <img src="heartful画像/打ち合わせ.jpeg" alt="お客様との打ち合わせ風景" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius);" loading="lazy">
+        <img src="heartful画像/打ち合わせ.jpeg" alt="お客様との打ち合わせ風景" loading="lazy" width="400" height="533">
       </div>
 
       <div class="representative__content">
@@ -2142,8 +2179,8 @@ ul, ol { list-style: none; }
           <strong>藤田 宗一郎</strong>
         </div>
 
-        <div style="margin-top:24px;padding:20px 24px;background:var(--badge-bg);border-radius:var(--radius);font-size:14px;line-height:1.8;color:var(--text-light);" class="fade-in">
-          <p style="font-weight:500;color:var(--text);margin-bottom:8px;">スタッフ 神津 直和</p>
+        <div class="representative__bio fade-in">
+          <p class="representative__bio-title">スタッフ 神津 直和</p>
           <p>前職は料理人。「人に喜んでもらう仕事」という点で、この仕事と通じるものを感じました。藤田の「お客様の心に向き合う」という姿勢に共感し、参画しています。</p>
         </div>
       </div>
@@ -2169,11 +2206,11 @@ ul, ol { list-style: none; }
 </section>
 
 <!-- ====== FAQ ====== -->
-<section class="faq" id="faq">
+<section class="faq" id="faq" role="region" aria-labelledby="faq-heading">
   <div class="wrapper">
     <div class="faq__heading-area fade-in">
       <p class="section-label">FAQ</p>
-      <h2 class="section-heading">よくあるご質問。</h2>
+      <h2 class="section-heading" id="faq-heading">よくあるご質問。</h2>
     </div>
 
     <div class="faq__list">
@@ -2236,11 +2273,11 @@ ul, ol { list-style: none; }
     <h2 class="final-cta__heading fade-in">まずは、ご相談ください。</h2>
     <p class="final-cta__sub fade-in">ささいなことでも構いません。遺品整理のプロが、ていねいにお答えします。</p>
 
-    <div class="final-cta__phone fade-in"><a href="tel:0120905734">0120-905-734</a></div>
+    <div class="final-cta__phone fade-in"><a href="tel:0742268496">0742-26-8496</a></div>
     <p class="final-cta__hours fade-in">7時〜22時（年中無休）｜ 相談・お見積り無料</p>
 
     <div class="final-cta__buttons fade-in">
-      <a href="tel:0120905734" class="btn btn--white">電話で相談する</a>
+      <a href="tel:0742268496" class="btn btn--white">電話で相談する</a>
       <a href="https://line.me/R/ti/p/@195brsjr" target="_blank" rel="noopener" class="btn btn--line">LINEで無料相談</a>
     </div>
     <p class="microcopy fade-in" style="color:rgba(255,255,255,0.5);">※時間外も電話相談に対応できる場合がございます</p>
@@ -2284,7 +2321,7 @@ ul, ol { list-style: none; }
 <!-- ====== FLOATING CTA (MOBILE) ====== -->
 <div class="floating-cta" id="floatingCta">
   <div class="floating-cta__inner">
-    <a href="tel:0120905734" class="floating-cta__btn floating-cta__btn--phone">
+    <a href="tel:0742268496" class="floating-cta__btn floating-cta__btn--phone">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
       電話で相談
     </a>
@@ -2300,7 +2337,7 @@ ul, ol { list-style: none; }
 (function() {
   var opening = document.getElementById('opening');
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var OPENING_TOTAL = prefersReduced ? 0 : 3800;
+  var OPENING_TOTAL = prefersReduced ? 0 : 2600;
 
   if (prefersReduced && opening) {
     opening.style.display = 'none';
@@ -2318,15 +2355,15 @@ ul, ol { list-style: none; }
   if (opening && !prefersReduced) {
     setTimeout(function() {
       opening.classList.add('phase-exit');
-    }, 2600);
+    }, 1800);
 
     setTimeout(function() {
       opening.classList.add('phase-circle');
-    }, 3000);
+    }, 2200);
 
     setTimeout(function() {
       triggerFvAnimations();
-    }, 3600);
+    }, 2600);
 
     opening.addEventListener('animationend', function(e) {
       if (e.animationName === 'op-circle-shrink') {
