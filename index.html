@@ -431,8 +431,20 @@ ul, ol { list-style: none; }
   letter-spacing: 0.06em;
   color: var(--text-light);
   transition: color 300ms var(--ease);
+  position: relative;
+}
+.header__nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--primary);
+  transition: width 400ms var(--ease);
 }
 .header__nav a:hover { color: var(--primary); }
+.header__nav a:hover::after { width: 100%; }
 
 .header__cta {
   display: flex;
@@ -481,7 +493,7 @@ ul, ol { list-style: none; }
 
 .fv__inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 55fr 45fr;
   gap: clamp(32px, 5vw, 80px);
   align-items: center;
   max-width: var(--content-width);
@@ -538,20 +550,20 @@ ul, ol { list-style: none; }
 
 .fv__heading {
   font-family: 'Noto Serif JP', serif;
-  font-size: clamp(26px, 4.2vw, 50px);
+  font-size: clamp(28px, 5vw, 56px);
   font-weight: 400;
-  line-height: 1.3;
-  letter-spacing: 0.06em;
+  line-height: 1.25;
+  letter-spacing: 0.07em;
   color: var(--text);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   text-wrap: balance;
   word-break: auto-phrase;
 }
 
 @media (max-width: 768px) {
   .fv__heading {
-    font-size: clamp(24px, 6.5vw, 32px);
-    line-height: 1.4;
+    font-size: clamp(24px, 7vw, 34px);
+    line-height: 1.35;
   }
 }
 
@@ -613,7 +625,7 @@ ul, ol { list-style: none; }
 .problem__list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
+  gap: 20px;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -677,7 +689,7 @@ ul, ol { list-style: none; }
 .reasons__grid {
   display: flex;
   flex-direction: column;
-  gap: clamp(32px, 4vw, 48px);
+  gap: clamp(24px, 3vw, 32px);
 }
 
 .reason-card {
@@ -688,6 +700,7 @@ ul, ol { list-style: none; }
   padding: clamp(28px, 4vw, 48px);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  border-top: 3px solid var(--primary);
 }
 
 .reason-card__number {
@@ -808,6 +821,20 @@ ul, ol { list-style: none; }
   padding: clamp(48px, 6vw, 80px) 0;
   background: var(--bg-dark);
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-band::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(230,126,34,0.12) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .cta-band__heading {
@@ -866,7 +893,13 @@ ul, ol { list-style: none; }
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto auto;
-  gap: 16px;
+  gap: 20px;
+}
+
+.services__grid .service-card:not(.service-card--photo) {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
 }
 
 .services__grid .service-card:nth-child(1) { grid-column: span 2; }
@@ -976,14 +1009,59 @@ ul, ol { list-style: none; }
   margin-bottom: clamp(40px, 5vw, 64px);
 }
 
+.pricing__layout {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: clamp(24px, 4vw, 48px);
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .pricing__layout { grid-template-columns: 1fr; }
+}
+
 .pricing__table-wrap {
-  max-width: 700px;
-  margin: 0 auto;
   background: #fff;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
 }
+
+.pricing__sidebar {
+  position: sticky;
+  top: 96px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: clamp(28px, 3vw, 40px);
+  text-align: center;
+}
+
+.pricing__sidebar-heading {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+
+.pricing__sidebar-phone {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+}
+
+.pricing__sidebar-phone a { color: inherit; }
+
+.pricing__sidebar-hours {
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 24px;
+}
+
+.pricing__sidebar .btn { width: 100%; }
 
 .pricing__table {
   width: 100%;
@@ -1644,7 +1722,7 @@ ul, ol { list-style: none; }
     </div>
 
     <div class="fv__visual fade-in">
-      <img class="fv__hero-img" src="heartful画像/打ち合わせ.jpeg" alt="お客様との打ち合わせ風景" width="560" height="420" loading="eager">
+      <img class="fv__hero-img" src="藤田社長写真.jpg" alt="代表 藤田宗一郎" width="560" height="420" loading="eager">
     </div>
   </div>
 </section>
@@ -1699,7 +1777,7 @@ ul, ol { list-style: none; }
     </div>
 
     <div class="reasons__grid">
-      <div class="reason-card fade-in">
+      <div class="reason-card reveal-up">
         <div class="reason-card__number">01</div>
         <div>
           <h3 class="reason-card__title">追加料金は、一切いただきません。</h3>
@@ -1711,7 +1789,7 @@ ul, ol { list-style: none; }
         </div>
       </div>
 
-      <div class="reason-card fade-in">
+      <div class="reason-card reveal-up">
         <div class="reason-card__number">02</div>
         <div>
           <h3 class="reason-card__title">礼節とスピード。どちらも、妥協しません。</h3>
@@ -1723,7 +1801,7 @@ ul, ol { list-style: none; }
         </div>
       </div>
 
-      <div class="reason-card fade-in">
+      <div class="reason-card reveal-up">
         <div class="reason-card__number">03</div>
         <div>
           <h3 class="reason-card__title">その場で買取査定。費用を抑えます。</h3>
@@ -1851,59 +1929,66 @@ ul, ol { list-style: none; }
 <!-- ====== PRICING ====== -->
 <section class="pricing" id="pricing">
   <div class="wrapper">
-    <div class="pricing__heading-area fade-in">
+    <div class="pricing__heading-area fade-in" style="text-align:left;margin-bottom:clamp(32px,4vw,48px);">
       <p class="section-label">Price</p>
       <h2 class="section-heading">料金の目安。</h2>
-      <p class="section-sub" style="margin-left:auto;margin-right:auto;">お見積りは完全無料です。現地確認後、明確な金額をお出しします。</p>
     </div>
 
-    <div class="pricing__table-wrap fade-in">
-      <table class="pricing__table">
-        <thead>
-          <tr>
-            <th>間取り</th>
-            <th>料金目安</th>
-            <th>備考</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1K</td>
-            <td><span class="price">25,000</span>円〜</td>
-            <td>単身者の生前整理等に</td>
-          </tr>
-          <tr>
-            <td>1DK</td>
-            <td><span class="price">35,000</span>円〜</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>2DK</td>
-            <td><span class="price">45,000</span>円〜</td>
-            <td>物量により変動</td>
-          </tr>
-          <tr>
-            <td>3DK以上</td>
-            <td><span class="price">80,000</span>円〜</td>
-            <td>一軒家も対応可</td>
-          </tr>
-          <tr>
-            <td>2tトラック積み放題</td>
-            <td><span class="price">60,000</span>円〜</td>
-            <td>不用品回収向け</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div class="pricing__layout">
+      <div>
+        <div class="pricing__table-wrap mask-in">
+          <table class="pricing__table">
+            <thead>
+              <tr>
+                <th>間取り</th>
+                <th>料金目安</th>
+                <th>備考</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1K</td>
+                <td><span class="price">25,000</span>円〜</td>
+                <td>単身者の生前整理等に</td>
+              </tr>
+              <tr>
+                <td>1DK</td>
+                <td><span class="price">35,000</span>円〜</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>2DK</td>
+                <td><span class="price">45,000</span>円〜</td>
+                <td>物量により変動</td>
+              </tr>
+              <tr>
+                <td>3DK以上</td>
+                <td><span class="price">80,000</span>円〜</td>
+                <td>一軒家も対応可</td>
+              </tr>
+              <tr>
+                <td>2tトラック積み放題</td>
+                <td><span class="price">60,000</span>円〜</td>
+                <td>不用品回収向け</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="pricing__note fade-in">※上記は目安です。物量により料金は異なります。現地確認後、明確なお見積りをご提示いたします。</p>
+      </div>
 
-    <p class="pricing__note fade-in">※上記は目安です。実際の作業内容や物量により料金は異なります。<br>現地確認後、明確なお見積りをご提示いたしますのでご安心ください。</p>
-
-    <div class="pricing__cta fade-in">
-      <a href="tel:0120905734" class="btn btn--primary">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        30秒で完了！無料見積りを依頼する
-      </a>
-      <p class="microcopy">見積り後のキャンセルも無料です</p>
+      <div class="pricing__sidebar fade-in">
+        <p class="pricing__sidebar-heading">お見積りは完全無料です。</p>
+        <div class="pricing__sidebar-phone"><a href="tel:0120905734">0120-905-734</a></div>
+        <p class="pricing__sidebar-hours">7:00〜22:00（年中無休）</p>
+        <a href="tel:0120905734" class="btn btn--white" style="margin-bottom:12px;">
+          30秒で完了！無料見積り
+        </a>
+        <a href="https://line.me/R/ti/p/@195brsjr" target="_blank" rel="noopener" class="btn btn--line" style="width:100%;">
+          LINEで無料相談
+        </a>
+        <p style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:12px;">見積り後のキャンセルも無料です</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1993,7 +2078,7 @@ ul, ol { list-style: none; }
   <div class="wrapper">
     <div class="representative__inner">
       <div class="representative__photo fade-in">
-        <img src="藤田社長写真.jpg" alt="代表 藤田宗一郎" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius);" loading="lazy">
+        <img src="heartful画像/打ち合わせ.jpeg" alt="お客様との打ち合わせ風景" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius);" loading="lazy">
       </div>
 
       <div class="representative__content">
@@ -2237,13 +2322,45 @@ ul, ol { list-style: none; }
   }, OPENING_TOTAL + 200);
 
   document.querySelectorAll('.faq__question').forEach(function(btn) {
+    btn.setAttribute('aria-expanded', 'false');
     btn.addEventListener('click', function() {
       var item = btn.parentElement;
       var wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq__item.open').forEach(function(i) { i.classList.remove('open'); });
-      if (!wasOpen) item.classList.add('open');
+      document.querySelectorAll('.faq__item.open').forEach(function(i) {
+        i.classList.remove('open');
+        i.querySelector('.faq__question').setAttribute('aria-expanded', 'false');
+      });
+      if (!wasOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
     });
   });
+
+  var countEl = document.querySelector('.promise__number');
+  if (countEl) {
+    var counted = false;
+    var countObserver = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting && !counted) {
+        counted = true;
+        var start = 3;
+        var end = 1;
+        var duration = 800;
+        var startTime = null;
+        function animateCount(timestamp) {
+          if (!startTime) startTime = timestamp;
+          var progress = Math.min((timestamp - startTime) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          var current = Math.round(start - (start - end) * eased);
+          countEl.innerHTML = current + '<span class="promise__arrow">\u2192</span>' + end + '<span class="promise__unit">\u65e5</span>';
+          if (progress < 1) requestAnimationFrame(animateCount);
+        }
+        requestAnimationFrame(animateCount);
+        countObserver.unobserve(countEl);
+      }
+    }, { threshold: 0.5 });
+    countObserver.observe(countEl);
+  }
 
   var floating = document.getElementById('floatingCta');
   window.addEventListener('scroll', function() {
