@@ -471,13 +471,35 @@ ul, ol { list-style: none; }
 }
 
 /* ========================================
-   FIRST VIEW
+   FIRST VIEW（全画面表示）
 ======================================== */
 .fv {
-  padding: clamp(60px, 10vw, 120px) 0 clamp(60px, 8vw, 100px);
-  background: linear-gradient(165deg, var(--bg) 0%, var(--bg-alt) 100%);
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
   overflow: hidden;
+}
+
+.fv__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.fv__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.fv__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0.5;
+  background: linear-gradient(90deg, rgba(250,250,248,0.97) 0%, rgba(250,250,248,0.75) 35%, rgba(250,250,248,0.25) 55%, transparent 70%);
+  pointer-events: none;
 }
 
 .fv::after {
@@ -487,8 +509,9 @@ ul, ol { list-style: none; }
   right: -20%;
   width: 60%;
   height: 200%;
-  background: radial-gradient(ellipse, rgba(45,90,61,0.04) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(45,90,61,0.06) 0%, transparent 70%);
   pointer-events: none;
+  z-index: 0.6;
 }
 
 .fv__inner {
@@ -498,7 +521,7 @@ ul, ol { list-style: none; }
   align-items: center;
   max-width: var(--content-width);
   margin: 0 auto;
-  padding: 0 var(--side-padding);
+  padding: clamp(24px, 5vw, 48px) var(--side-padding);
   position: relative;
   z-index: 1;
 }
@@ -589,12 +612,9 @@ ul, ol { list-style: none; }
   justify-content: center;
 }
 
-.fv__hero-img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-lg);
+/* 全画面FVではビジュアル列はスペース確保のみ（画像は .fv__bg で表示） */
+.fv__visual .fv__hero-img {
+  display: none;
 }
 
 @media (max-width: 768px) {
@@ -605,8 +625,9 @@ ul, ol { list-style: none; }
   .fv__badges { justify-content: center; }
   .fv__sub { margin-left: auto; margin-right: auto; }
   .fv__cta { justify-content: center; }
-  .fv__visual { order: -1; }
-  .fv__hero-img { aspect-ratio: 16 / 9; max-height: 280px; }
+  .fv__overlay {
+    background: linear-gradient(180deg, rgba(250,250,248,0.94) 0%, rgba(250,250,248,0.7) 50%, rgba(250,250,248,0.4) 100%);
+  }
 }
 
 /* ========================================
@@ -1673,6 +1694,8 @@ ul, ol { list-style: none; }
 
 <!-- ====== FIRST VIEW ====== -->
 <section class="fv" id="top">
+  <div class="fv__bg" aria-hidden="true"><img src="fv-hero.png" alt="" loading="eager"></div>
+  <div class="fv__overlay" aria-hidden="true"></div>
   <div class="fv__inner">
     <div class="fv__content">
       <div class="fv__identity fade-in">
@@ -1721,8 +1744,8 @@ ul, ol { list-style: none; }
       <p class="microcopy fade-in">相談・お見積り無料 ｜ 秘密厳守 ｜ 奈良・大阪を中心に近畿一円対応</p>
     </div>
 
-    <div class="fv__visual fade-in">
-      <img class="fv__hero-img" src="藤田社長写真.jpg" alt="代表 藤田宗一郎" width="560" height="420" loading="eager">
+    <div class="fv__visual fade-in" aria-hidden="true">
+      <!-- 全画面表示のため画像は .fv__bg で表示 -->
     </div>
   </div>
 </section>
