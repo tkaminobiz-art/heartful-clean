@@ -436,12 +436,18 @@ ul, ol { list-style: none; }
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 6px 12px;
+  margin: 0 -12px 0 0;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .header__logo img {
+  display: block;
   height: 36px;
   width: auto;
-  filter: brightness(0) invert(1);
+  min-width: 36px;
+  object-fit: contain;
 }
 
 .header__logo-text {
@@ -1883,7 +1889,7 @@ ul, ol { list-style: none; }
 <header class="header">
   <div class="header__inner">
     <a href="#" class="header__logo">
-      <img src="logo.jpg" alt="" width="120" height="36" loading="eager">
+      <img src="./logo.jpg" alt="ハートフルクリーン ロゴ" width="120" height="36" loading="eager">
       <span class="header__logo-text">ハートフルクリーン</span>
     </a>
     <nav class="header__nav">
