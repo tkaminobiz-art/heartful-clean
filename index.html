@@ -187,6 +187,7 @@ ul, ol { list-style: none; }
   color: var(--text-light);
   margin-top: 8px;
   text-align: center;
+  text-wrap: pretty;
 }
 
 /* ===== Noise Texture (2026 Craft Feel) ===== */
@@ -665,6 +666,7 @@ ul, ol { list-style: none; }
   box-shadow: var(--shadow);
   font-size: 15px;
   line-height: 1.7;
+  text-wrap: pretty;
 }
 
 .problem__icon {
@@ -827,12 +829,14 @@ ul, ol { list-style: none; }
   letter-spacing: 0.03em;
   margin-bottom: 10px;
   line-height: 1.5;
+  text-wrap: pretty;
 }
 
 .promise__desc {
   font-size: 13px;
   color: var(--text-light);
   line-height: 1.7;
+  text-wrap: pretty;
 }
 
 @media (max-width: 520px) {
@@ -980,6 +984,7 @@ ul, ol { list-style: none; }
   font-size: 14px;
   color: var(--text-light);
   line-height: 1.7;
+  text-wrap: pretty;
 }
 
 .service-card--photo {
@@ -1040,11 +1045,38 @@ ul, ol { list-style: none; }
   line-height: 1.7;
   margin-top: 12px;
   max-width: 640px;
+  text-wrap: pretty;
+}
+
+.pricing__summary-item {
+  white-space: nowrap;
+}
+
+.pricing__summary-sep {
+  white-space: nowrap;
+  margin: 0 0.15em;
+}
+
+.pricing__summary-note {
+  white-space: normal;
 }
 
 .pricing__summary strong {
   color: var(--primary);
   font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .pricing__summary {
+    font-size: 13px;
+    line-height: 1.75;
+  }
+  .pricing__summary-item {
+    white-space: normal;
+  }
+  .pricing__summary-sep {
+    margin: 0 0.2em;
+  }
 }
 
 .pricing__layout {
@@ -1158,6 +1190,7 @@ ul, ol { list-style: none; }
   margin-top: 24px;
   line-height: 1.8;
   max-width: 520px;
+  text-wrap: pretty;
 }
 
 .pricing__cta {
@@ -1237,6 +1270,7 @@ ul, ol { list-style: none; }
   font-size: 14px;
   color: var(--text-light);
   line-height: 1.7;
+  text-wrap: pretty;
 }
 
 /* ========================================
@@ -1291,6 +1325,7 @@ ul, ol { list-style: none; }
   line-height: 1.8;
   color: var(--text);
   margin-bottom: 16px;
+  text-wrap: pretty;
 }
 
 .testimonial-card__meta {
@@ -1506,10 +1541,15 @@ ul, ol { list-style: none; }
   font-size: 14px;
   line-height: 1.8;
   color: var(--text-light);
+  text-wrap: pretty;
 }
 
-/* ========================================
-   FINAL CTA
+@media (max-width: 768px) {
+  .faq__answer-inner {
+    padding: 0 16px 16px 52px;
+    font-size: 14px;
+  }
+}
 ======================================== */
 .final-cta {
   padding: clamp(80px, 10vw, 140px) 0;
@@ -1907,7 +1947,7 @@ ul, ol { list-style: none; }
         <div class="promise__icon">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
         </div>
-        <h3 class="promise__title">「土足でいい」と言われても、<br>必ず靴を脱ぎます。</h3>
+        <h3 class="promise__title">「土足でいい」と言われても、<br class="br-lg">必ず靴を脱ぎます。</h3>
         <p class="promise__desc">故人の家への敬意。言葉遣い、遺品の扱い、すべてに礼節を尽くします。</p>
       </div>
     </div>
@@ -2010,7 +2050,7 @@ ul, ol { list-style: none; }
     <div class="pricing__heading-area fade-in" style="text-align:left;margin-bottom:clamp(32px,4vw,48px);">
       <p class="section-label">Price</p>
       <h2 class="section-heading">料金の目安。</h2>
-      <p class="pricing__summary">1K <strong>25,000円〜</strong>／1DK <strong>35,000円〜</strong>／2DK <strong>45,000円〜</strong>／3DK以上 <strong>80,000円〜</strong>（目安・物量により変動）</p>
+      <p class="pricing__summary"><span class="pricing__summary-item">1K <strong>25,000円〜</strong></span><span class="pricing__summary-sep">／</span><span class="pricing__summary-item">1DK <strong>35,000円〜</strong></span><span class="pricing__summary-sep">／</span><span class="pricing__summary-item">2DK <strong>45,000円〜</strong></span><span class="pricing__summary-sep">／</span><span class="pricing__summary-item">3DK以上 <strong>80,000円〜</strong></span><span class="pricing__summary-note">（目安・物量により変動）</span></p>
     </div>
 
     <div class="pricing__layout">
