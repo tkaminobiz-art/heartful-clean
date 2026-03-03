@@ -494,11 +494,12 @@ ul, ol { list-style: none; }
   object-position: center;
 }
 
+/* 左に社長・右にテキスト：左は透過、右でテキスト可読に */
 .fv__overlay {
   position: absolute;
   inset: 0;
   z-index: 0.5;
-  background: linear-gradient(90deg, rgba(250,250,248,0.97) 0%, rgba(250,250,248,0.75) 35%, rgba(250,250,248,0.25) 55%, transparent 70%);
+  background: linear-gradient(90deg, transparent 0%, rgba(250,250,248,0.15) 28%, rgba(250,250,248,0.6) 50%, rgba(250,250,248,0.96) 72%);
   pointer-events: none;
 }
 
@@ -514,9 +515,10 @@ ul, ol { list-style: none; }
   z-index: 0.6;
 }
 
+/* 左＝社長が見えるスペース、右＝テキスト */
 .fv__inner {
   display: grid;
-  grid-template-columns: 55fr 45fr;
+  grid-template-columns: 45fr 55fr;
   gap: clamp(32px, 5vw, 80px);
   align-items: center;
   max-width: var(--content-width);
@@ -622,6 +624,8 @@ ul, ol { list-style: none; }
     grid-template-columns: 1fr;
     text-align: center;
   }
+  .fv__visual { order: 2; }
+  .fv__content { order: 1; }
   .fv__badges { justify-content: center; }
   .fv__sub { margin-left: auto; margin-right: auto; }
   .fv__cta { justify-content: center; }
@@ -1026,19 +1030,20 @@ ul, ol { list-style: none; }
 }
 
 .pricing__heading-area {
-  text-align: center;
-  margin-bottom: clamp(40px, 5vw, 64px);
+  text-align: left;
+  margin-bottom: clamp(40px, 5vw, 56px);
 }
 
 .pricing__layout {
   display: grid;
-  grid-template-columns: 3fr 2fr;
-  gap: clamp(24px, 4vw, 48px);
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(32px, 5vw, 56px);
   align-items: start;
+  max-width: 100%;
 }
 
 @media (max-width: 768px) {
-  .pricing__layout { grid-template-columns: 1fr; }
+  .pricing__layout { grid-template-columns: 1fr; gap: 32px; }
 }
 
 .pricing__table-wrap {
@@ -1054,35 +1059,49 @@ ul, ol { list-style: none; }
   background: var(--primary);
   color: #fff;
   border-radius: var(--radius);
-  padding: clamp(28px, 3vw, 40px);
+  padding: clamp(32px, 4vw, 48px) clamp(28px, 3.5vw, 40px);
   text-align: center;
+  box-shadow: var(--shadow-lg);
 }
 
 .pricing__sidebar-heading {
   font-family: 'Noto Serif JP', serif;
-  font-size: clamp(18px, 2vw, 22px);
+  font-size: clamp(17px, 1.8vw, 20px);
   font-weight: 400;
   letter-spacing: 0.06em;
-  margin-bottom: 12px;
+  line-height: 1.5;
+  margin-bottom: 20px;
 }
 
 .pricing__sidebar-phone {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(24px, 3vw, 32px);
+  font-size: clamp(22px, 2.6vw, 28px);
   font-weight: 300;
   letter-spacing: 0.02em;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
-.pricing__sidebar-phone a { color: inherit; }
+.pricing__sidebar-phone a { color: inherit; text-decoration: none; }
 
 .pricing__sidebar-hours {
-  font-size: 12px;
-  color: rgba(255,255,255,0.65);
-  margin-bottom: 24px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 28px;
+  letter-spacing: 0.02em;
 }
 
-.pricing__sidebar .btn { width: 100%; }
+.pricing__sidebar .btn {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.pricing__sidebar .btn:last-of-type { margin-bottom: 0; }
+.pricing__sidebar-notes {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 20px;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
 
 .pricing__table {
   width: 100%;
@@ -1122,9 +1141,10 @@ ul, ol { list-style: none; }
 .pricing__note {
   font-size: 13px;
   color: var(--text-light);
-  text-align: center;
-  margin-top: 20px;
-  line-height: 1.7;
+  text-align: left;
+  margin-top: 24px;
+  line-height: 1.8;
+  max-width: 520px;
 }
 
 .pricing__cta {
@@ -1686,7 +1706,7 @@ ul, ol { list-style: none; }
     <div class="header__cta">
       <div style="text-align: right;">
         <div class="header__phone"><a href="tel:0120905734">0120-905-734</a></div>
-        <div class="header__phone-sub">7:00〜22:00（年中無休）</div>
+        <div class="header__phone-sub">7時〜22時（年中無休）</div>
       </div>
     </div>
   </div>
@@ -1697,6 +1717,9 @@ ul, ol { list-style: none; }
   <div class="fv__bg" aria-hidden="true"><img src="fv-hero.png" alt="" loading="eager"></div>
   <div class="fv__overlay" aria-hidden="true"></div>
   <div class="fv__inner">
+    <div class="fv__visual fade-in" aria-hidden="true">
+      <!-- 左側：社長が映るスペース（画像は .fv__bg で表示） -->
+    </div>
     <div class="fv__content">
       <div class="fv__identity fade-in">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1715,7 +1738,7 @@ ul, ol { list-style: none; }
       <div class="fv__badges fade-in">
         <span class="fv__badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          遺品整理士認定
+          遺品整理のプロ
         </span>
         <span class="fv__badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1742,10 +1765,6 @@ ul, ol { list-style: none; }
         </a>
       </div>
       <p class="microcopy fade-in">相談・お見積り無料 ｜ 秘密厳守 ｜ 奈良・大阪を中心に近畿一円対応</p>
-    </div>
-
-    <div class="fv__visual fade-in" aria-hidden="true">
-      <!-- 全画面表示のため画像は .fv__bg で表示 -->
     </div>
   </div>
 </section>
@@ -1805,7 +1824,7 @@ ul, ol { list-style: none; }
         <div>
           <h3 class="reason-card__title">追加料金は、一切いただきません。</h3>
           <div class="reason-card__body">
-            <p>遺品整理士が現地を確認し、明確なお見積りを提示します。その金額が、最終請求額です。</p>
+            <p>遺品整理のプロが現地を確認し、明確なお見積りを提示します。その金額が、最終請求額です。</p>
             <p>後から費用が増えることは、絶対にありません。</p>
             <p>お見積りは完全無料。納得いかなければ、お断りいただけます。</p>
           </div>
@@ -1863,9 +1882,9 @@ ul, ol { list-style: none; }
 <div class="cta-band">
   <div class="wrapper">
     <p class="cta-band__heading fade-in">まずは、ご相談ください。</p>
-    <p class="cta-band__sub fade-in">ささいなことでも構いません。遺品整理士がていねいにお答えします。</p>
+    <p class="cta-band__sub fade-in">ささいなことでも構いません。遺品整理のプロがていねいにお答えします。</p>
     <div class="cta-band__phone fade-in"><a href="tel:0120905734">0120-905-734</a></div>
-    <p class="cta-band__hours fade-in">7:00〜22:00（年中無休）｜ 相談・お見積り無料</p>
+    <p class="cta-band__hours fade-in">7時〜22時（年中無休）｜ 相談・お見積り無料</p>
     <div class="cta-band__buttons fade-in">
       <a href="tel:0120905734" class="btn btn--white">電話で相談する</a>
       <a href="https://line.me/R/ti/p/@195brsjr" target="_blank" rel="noopener" class="btn btn--line">LINEで無料相談</a>
@@ -2002,15 +2021,15 @@ ul, ol { list-style: none; }
 
       <div class="pricing__sidebar fade-in">
         <p class="pricing__sidebar-heading">お見積りは完全無料です。</p>
-        <div class="pricing__sidebar-phone"><a href="tel:0120905734">0120-905-734</a></div>
-        <p class="pricing__sidebar-hours">7:00〜22:00（年中無休）</p>
-        <a href="tel:0120905734" class="btn btn--white" style="margin-bottom:12px;">
+        <div class="pricing__sidebar-phone"><a href="tel:0742268496">0742-26-8496</a></div>
+        <p class="pricing__sidebar-hours">7時〜22時（年中無休）</p>
+        <a href="tel:0742268496" class="btn btn--white">
           30秒で完了！無料見積り
         </a>
         <a href="https://line.me/R/ti/p/@195brsjr" target="_blank" rel="noopener" class="btn btn--line" style="width:100%;">
           LINEで無料相談
         </a>
-        <p style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:12px;">見積り後のキャンセルも無料です</p>
+        <p class="pricing__sidebar-notes">見積り後のキャンセルも無料です</p>
       </div>
     </div>
   </div>
@@ -2036,7 +2055,7 @@ ul, ol { list-style: none; }
         <div class="flow__step-num">2</div>
         <div>
           <h3 class="flow__step-title">現地訪問・無料見積り</h3>
-          <p class="flow__step-desc">遺品整理士が直接お伺いし、お部屋の状況を確認。その場で明確な金額をお出しします。</p>
+          <p class="flow__step-desc">遺品整理のプロが直接お伺いし、お部屋の状況を確認。その場で明確な金額をお出しします。</p>
         </div>
       </div>
       <div class="flow__step fade-in">
@@ -2161,7 +2180,7 @@ ul, ol { list-style: none; }
       <div class="faq__item fade-in">
         <button class="faq__question">見積り後に追加料金は発生しますか？</button>
         <div class="faq__answer">
-          <div class="faq__answer-inner">一切発生しません。遺品整理士が現地を確認した上でお出しした見積り金額が、最終請求額です。作業中に追加費用が発生することは絶対にありません。</div>
+          <div class="faq__answer-inner">一切発生しません。遺品整理のプロが現地を確認した上でお出しした見積り金額が、最終請求額です。作業中に追加費用が発生することは絶対にありません。</div>
         </div>
       </div>
 
@@ -2215,10 +2234,10 @@ ul, ol { list-style: none; }
   <div class="wrapper">
     <p class="section-label fade-in">Contact</p>
     <h2 class="final-cta__heading fade-in">まずは、ご相談ください。</h2>
-    <p class="final-cta__sub fade-in">ささいなことでも構いません。遺品整理士が、ていねいにお答えします。</p>
+    <p class="final-cta__sub fade-in">ささいなことでも構いません。遺品整理のプロが、ていねいにお答えします。</p>
 
     <div class="final-cta__phone fade-in"><a href="tel:0120905734">0120-905-734</a></div>
-    <p class="final-cta__hours fade-in">7:00〜22:00（年中無休）｜ 相談・お見積り無料</p>
+    <p class="final-cta__hours fade-in">7時〜22時（年中無休）｜ 相談・お見積り無料</p>
 
     <div class="final-cta__buttons fade-in">
       <a href="tel:0120905734" class="btn btn--white">電話で相談する</a>
@@ -2247,12 +2266,10 @@ ul, ol { list-style: none; }
         <tr><th>運営法人</th><td>株式会社和（なごみ）</td></tr>
         <tr><th>代表者</th><td>藤田 宗一郎</td></tr>
         <tr><th>所在地</th><td>〒630-8145 奈良県奈良市八条5-498-1</td></tr>
-        <tr><th>フリーダイヤル</th><td><a href="tel:0120905734" style="color:var(--primary)">0120-905-734</a></td></tr>
-        <tr><th>一般電話</th><td>0742-26-8496</td></tr>
-        <tr><th>営業時間</th><td>7:00〜22:00（年中無休・土日祝も対応）</td></tr>
+        <tr><th>電話</th><td><a href="tel:0742268496" style="color:var(--primary)">0742-26-8496</a></td></tr>
+        <tr><th>営業時間</th><td>7時〜22時（年中無休・土日祝も対応）</td></tr>
         <tr><th>対応エリア</th><td>奈良・大阪を中心に近畿一円（京都・兵庫・三重・滋賀・和歌山）</td></tr>
         <tr><th>お支払い方法</th><td>現金 / クレジットカード / PayPay</td></tr>
-        <tr><th>資格</th><td>遺品整理士認定協会認定</td></tr>
       </table>
     </div>
   </div>
@@ -2376,6 +2393,7 @@ ul, ol { list-style: none; }
           var eased = 1 - Math.pow(1 - progress, 3);
           var current = Math.round(start - (start - end) * eased);
           countEl.innerHTML = current + '<span class="promise__arrow">\u2192</span>' + end + '<span class="promise__unit">\u65e5</span>';
+          if (progress >= 1) countEl.innerHTML = '3<span class="promise__arrow">\u2192</span>1<span class="promise__unit">\u65e5</span>';
           if (progress < 1) requestAnimationFrame(animateCount);
         }
         requestAnimationFrame(animateCount);
