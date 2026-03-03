@@ -191,72 +191,143 @@ ul, ol { list-style: none; }
   background-size: 256px 256px;
 }
 
-/* ===== Opening Animation ===== */
+/* ===== Opening Animation — Cinematic Typography Reveal ===== */
 .opening {
   position: fixed;
   inset: 0;
   z-index: 10000;
-  background: var(--primary);
+  background: var(--primary-dark);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  overflow: hidden;
+  will-change: clip-path, transform;
 }
 
-.opening::before {
-  content: '';
+.opening__glow {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 40%, rgba(255,255,255,0.06) 0%, transparent 70%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(58,107,74,0.5) 0%, transparent 70%);
+  opacity: 0;
+  animation: op-glow 2000ms ease-out 200ms forwards;
   pointer-events: none;
 }
 
-.opening__logo {
-  width: clamp(64px, 12vw, 100px);
+.opening__label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 20px;
   opacity: 0;
-  filter: brightness(0) invert(1);
-  animation: op-logo 700ms var(--ease) 400ms forwards;
+  animation: op-fade-up 700ms cubic-bezier(0.22, 1, 0.36, 1) 300ms forwards;
+}
+
+.opening__title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(28px, 5.5vw, 52px);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: #fff;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.opening__char {
+  display: inline-block;
+  clip-path: inset(100% 0 0 0);
+  transform: translateY(30%);
+  animation: op-char 700ms cubic-bezier(0.22, 1, 0.36, 1) calc(600ms + var(--i) * 55ms) forwards;
+}
+
+.opening__divider {
+  width: 0;
+  height: 1px;
+  background: rgba(255,255,255,0.25);
+  margin: 24px 0;
+  animation: op-divider 800ms cubic-bezier(0.16, 1, 0.3, 1) 1300ms forwards;
+  position: relative;
+  z-index: 1;
 }
 
 .opening__tagline {
   font-family: 'Noto Serif JP', serif;
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: clamp(13px, 1.6vw, 16px);
   font-weight: 400;
-  color: rgba(255,255,255,0.85);
-  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.65);
+  letter-spacing: 0.14em;
+  line-height: 1.8;
   text-align: center;
   opacity: 0;
-  animation: op-tag 600ms var(--ease) 1200ms forwards;
+  transform: translateY(10px);
+  animation: op-fade-up 800ms cubic-bezier(0.22, 1, 0.36, 1) 1600ms forwards;
+  position: relative;
+  z-index: 1;
 }
 
-.opening__line {
-  width: 40px;
-  height: 1px;
-  background: rgba(255,255,255,0.3);
+.opening__bottom-line {
+  position: absolute;
+  bottom: clamp(24px, 4vh, 48px);
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
   opacity: 0;
-  animation: op-line 500ms var(--ease) 1000ms forwards;
+  animation: op-fade-up 600ms ease 500ms forwards;
+  z-index: 1;
 }
 
-.opening.exit {
-  animation: op-exit 900ms var(--ease) forwards;
+.opening.phase-exit .opening__label,
+.opening.phase-exit .opening__title,
+.opening.phase-exit .opening__divider,
+.opening.phase-exit .opening__tagline,
+.opening.phase-exit .opening__bottom-line {
+  animation: op-content-fade 500ms ease-in forwards;
 }
 
-@keyframes op-logo {
-  0% { opacity: 0; transform: scale(0.92); }
+.opening.phase-exit .opening__glow {
+  animation: op-glow-out 800ms ease-in forwards;
+}
+
+.opening.phase-circle {
+  animation: op-circle-shrink 1000ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes op-glow {
+  0% { opacity: 0; transform: scale(0.5); }
   100% { opacity: 1; transform: scale(1); }
 }
-@keyframes op-line {
-  0% { opacity: 0; width: 0; }
-  100% { opacity: 1; width: 40px; }
+@keyframes op-glow-out {
+  to { opacity: 0; transform: scale(1.5); }
 }
-@keyframes op-tag {
-  0% { opacity: 0; transform: translateY(8px); }
+@keyframes op-char {
+  0% { clip-path: inset(100% 0 0 0); transform: translateY(30%); }
+  100% { clip-path: inset(0 0 0 0); transform: translateY(0); }
+}
+@keyframes op-divider {
+  0% { width: 0; }
+  100% { width: clamp(60px, 8vw, 100px); }
+}
+@keyframes op-fade-up {
+  0% { opacity: 0; transform: translateY(10px); }
   100% { opacity: 1; transform: translateY(0); }
 }
-@keyframes op-exit {
-  0% { clip-path: inset(0 0 0 0); }
-  100% { clip-path: inset(0 0 100% 0); }
+@keyframes op-content-fade {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-12px); }
+}
+@keyframes op-circle-shrink {
+  0% { clip-path: circle(100% at 50% 50%); transform: scale(1); }
+  100% { clip-path: circle(0% at 50% 50%); transform: scale(1.06); }
 }
 
 /* ===== Scroll Animation ===== */
@@ -293,7 +364,8 @@ ul, ol { list-style: none; }
 @media (prefers-reduced-motion: reduce) {
   .fade-in, .reveal-up { opacity: 1; transform: none; transition: none; }
   .mask-in { opacity: 1; clip-path: none; transition: none; }
-  .opening { display: none; }
+  .opening { display: none !important; }
+  .opening__char { clip-path: none; transform: none; }
 }
 
 /* ========================================
@@ -1450,9 +1522,14 @@ ul, ol { list-style: none; }
 
 <!-- ====== OPENING ANIMATION ====== -->
 <div class="opening" id="opening">
-  <img class="opening__logo" src="ハートクリーンロゴ画像.jpg" alt="">
-  <div class="opening__line"></div>
+  <div class="opening__glow"></div>
+  <p class="opening__label">奈良の遺品整理・特殊清掃</p>
+  <div class="opening__title" aria-label="ハートフルクリーン">
+    <span class="opening__char" style="--i:0">ハ</span><span class="opening__char" style="--i:1">ー</span><span class="opening__char" style="--i:2">ト</span><span class="opening__char" style="--i:3">フ</span><span class="opening__char" style="--i:4">ル</span><span class="opening__char" style="--i:5">ク</span><span class="opening__char" style="--i:6">リ</span><span class="opening__char" style="--i:7">ー</span><span class="opening__char" style="--i:8">ン</span>
+  </div>
+  <div class="opening__divider"></div>
   <p class="opening__tagline">溢れるものも、溢れる想いも<br>丁寧に片付ける。</p>
+  <p class="opening__bottom-line">Heartful Clean — Est. 2025</p>
 </div>
 
 <div class="noise-overlay" aria-hidden="true"></div>
@@ -2066,13 +2143,12 @@ ul, ol { list-style: none; }
 <!-- ====== SCRIPTS ====== -->
 <script>
 (function() {
-  var OPENING_DURATION = 2800;
   var opening = document.getElementById('opening');
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var OPENING_TOTAL = prefersReduced ? 0 : 3800;
 
-  if (prefersReduced) {
-    if (opening) opening.style.display = 'none';
-    OPENING_DURATION = 0;
+  if (prefersReduced && opening) {
+    opening.style.display = 'none';
   }
 
   function triggerFvAnimations() {
@@ -2080,23 +2156,26 @@ ul, ol { list-style: none; }
     var base = 0;
     fvEls.forEach(function(el) {
       setTimeout(function() { el.classList.add('visible'); }, base);
-      base += 200;
+      base += 220;
     });
   }
 
   if (opening && !prefersReduced) {
     setTimeout(function() {
-      opening.classList.add('exit');
-    }, 2200);
+      opening.classList.add('phase-exit');
+    }, 2600);
+
+    setTimeout(function() {
+      opening.classList.add('phase-circle');
+    }, 3000);
 
     setTimeout(function() {
       triggerFvAnimations();
-    }, OPENING_DURATION);
+    }, 3600);
 
     opening.addEventListener('animationend', function(e) {
-      if (e.animationName === 'op-exit') {
-        opening.style.pointerEvents = 'none';
-        opening.style.visibility = 'hidden';
+      if (e.animationName === 'op-circle-shrink') {
+        opening.style.display = 'none';
       }
     });
   } else {
@@ -2105,6 +2184,7 @@ ul, ol { list-style: none; }
 
   setTimeout(function() {
     var observer = new IntersectionObserver(function(entries) {
+      /* scroll observer delayed until opening completes */
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           var el = entry.target;
@@ -2124,7 +2204,7 @@ ul, ol { list-style: none; }
       }
       observer.observe(el);
     });
-  }, OPENING_DURATION + 100);
+  }, OPENING_TOTAL + 200);
 
   document.querySelectorAll('.faq__question').forEach(function(btn) {
     btn.addEventListener('click', function() {
