@@ -88,7 +88,7 @@ ul, ol { list-style: none; }
 
 .section-heading {
   font-family: 'Noto Serif JP', serif;
-  font-size: clamp(26px, 3.5vw, 42px);
+  font-size: clamp(28px, 3.5vw, 44px);
   font-weight: 400;
   letter-spacing: 0.06em;
   line-height: 1.4;
@@ -495,6 +495,19 @@ ul, ol { list-style: none; }
 .header__nav a:hover { color: #fff; }
 .header__nav a:hover::after { width: 100%; }
 
+.header__nav a.header__nav-c {
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
+  font-weight: 500;
+}
+.header__nav a.header__nav-c::after { display: none; }
+.header__nav a.header__nav-c:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: #fff;
+}
+
 .header__cta {
   display: flex;
   align-items: center;
@@ -636,7 +649,7 @@ ul, ol { list-style: none; }
 
 .fv__heading {
   font-family: 'Noto Serif JP', serif;
-  font-size: clamp(28px, 5vw, 56px);
+  font-size: clamp(30px, 5.5vw, 60px);
   font-weight: 400;
   line-height: 1.25;
   letter-spacing: 0.07em;
@@ -864,7 +877,7 @@ ul, ol { list-style: none; }
    PROMISE
 ======================================== */
 .promise {
-  padding: clamp(48px, 6vw, 80px) 0;
+  padding: clamp(64px, 8vw, 120px) 0;
   background: var(--bg);
 }
 
@@ -874,6 +887,18 @@ ul, ol { list-style: none; }
   gap: 20px;
   max-width: 800px;
   margin: 0 auto;
+}
+
+.promise__lead {
+  grid-column: 1 / -1;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 8px;
+  text-align: center;
 }
 
 .promise__card {
@@ -887,11 +912,11 @@ ul, ol { list-style: none; }
 
 .promise__number {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(44px, 6vw, 64px);
+  font-size: clamp(52px, 8vw, 80px);
   font-weight: 300;
   color: var(--primary);
   line-height: 1;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   letter-spacing: -0.02em;
 }
 
@@ -951,7 +976,6 @@ ul, ol { list-style: none; }
   width: 100%;
   height: auto;
   display: block;
-  vertical-align: bottom;
 }
 
 .support .wrapper {
@@ -1072,11 +1096,15 @@ ul, ol { list-style: none; }
 
 .services__grid .service-card:nth-child(1) { grid-column: span 2; }
 .services__grid .service-card:nth-child(3) { grid-column: span 2; }
+.services__grid .service-card:nth-child(5) { grid-row: span 2; min-height: 0; }
+.services__grid .service-card:nth-child(5).service-card--photo { min-height: 100%; }
+.services__grid .service-card:nth-child(5).service-card--photo img { object-position: center 30%; }
 
 @media (max-width: 900px) {
   .services__grid { grid-template-columns: repeat(2, 1fr); }
   .services__grid .service-card:nth-child(1),
   .services__grid .service-card:nth-child(3) { grid-column: span 1; }
+  .services__grid .service-card:nth-child(5) { grid-row: span 1; }
 }
 @media (max-width: 520px) {
   .services__grid { grid-template-columns: 1fr; }
@@ -1564,7 +1592,7 @@ ul, ol { list-style: none; }
    REPRESENTATIVE
 ======================================== */
 .representative {
-  padding: clamp(80px, 10vw, 160px) 0;
+  padding: clamp(64px, 8vw, 120px) 0;
   background: var(--bg);
 }
 
@@ -1607,6 +1635,7 @@ ul, ol { list-style: none; }
 .representative__text p + p {
   margin-top: 16px;
 }
+.representative__text .mask-in { display: block; }
 
 .representative__name {
   margin-top: 32px;
@@ -1777,15 +1806,31 @@ ul, ol { list-style: none; }
     font-size: 14px;
   }
 }
-======================================== */
+/* ======================================== */
 .final-cta {
   padding: clamp(80px, 10vw, 140px) 0;
   background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary-dark) 100%);
   text-align: center;
   color: var(--text-on-dark);
+  position: relative;
+  overflow: hidden;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(90vmax, 800px);
+  height: min(90vmax, 800px);
+  margin: calc(- min(90vmax, 800px) / 2) 0 0 calc(- min(90vmax, 800px) / 2);
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+  pointer-events: none;
 }
 
 .final-cta .section-label { color: rgba(255,255,255,0.5); }
+
+.final-cta .wrapper { position: relative; z-index: 1; }
 
 .final-cta__heading {
   font-family: 'Noto Serif JP', serif;
@@ -1820,11 +1865,25 @@ ul, ol { list-style: none; }
 
 .final-cta__buttons {
   display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
   margin-bottom: 12px;
 }
+.final-cta__buttons .btn--white {
+  width: 100%;
+  max-width: 360px;
+  padding: 20px 40px;
+  font-size: 17px;
+}
+.final-cta__line-link {
+  font-size: 15px;
+  color: rgba(255,255,255,0.85);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 300ms var(--ease);
+}
+.final-cta__line-link:hover { color: #fff; }
 
 .final-cta__line-qr {
   margin-top: 32px;
@@ -2021,6 +2080,7 @@ body { padding-bottom: 72px; }
       <a href="#flow">ご利用の流れ</a>
       <a href="#company">会社概要</a>
       <a href="index-b.html">Bパターン</a>
+      <a href="index-c.html" class="header__nav-c">C案</a>
     </nav>
     <div class="header__cta">
       <div style="text-align: right;">
@@ -2173,21 +2233,21 @@ body { padding-bottom: 72px; }
   <div class="wrapper">
     <div class="representative__inner">
       <div class="representative__photo fade-in">
-        <img src="heartful画像/打ち合わせ.jpeg" alt="お客様との打ち合わせ風景" loading="lazy" width="400" height="533">
+        <img src="heartful画像/打ち合わせ.jpeg" alt="お客様との打ち合わせ風景" loading="eager" width="400" height="533">
       </div>
 
       <div class="representative__content">
         <p class="section-label fade-in">Message</p>
         <h2 class="section-heading fade-in">なぜ、元警察官が<br class="br-lg">遺品整理を始めたのか。</h2>
 
-        <div class="representative__text fade-in">
-          <p>大阪府警察官として5年間勤務する中で、独居の方が亡くなった現場検証に何度も立ち会いました。</p>
-          <p>遺体が搬出された後に残された部屋。「この後の片付けは、誰がするのだろう」——その疑問から、遺品整理・特殊清掃という仕事の存在を知りました。</p>
-          <p>退職後、同業他社で3年間、現場責任者として経験を積みました。独立を前提に、徹底的に学びました。</p>
-          <p>しかし、そこで目の当たりにしたのは、格安で受注した回収物を不法投棄する業者の存在です。依頼者を騙し、環境を汚す。元警察官として、見過ごせませんでした。</p>
-          <p>曲がったことが嫌いな性分です。この業界を、もっとクリーンにしたい。屋号の「ハートフルクリーン」には、その決意を込めました。</p>
-          <p>私たちは、お客様に決断を急かしません。仕分けで迷われたら「決まったらご連絡ください」とお伝えします。「土足でいい」と言われても、必ず靴を脱ぎます。遺品の一つひとつを、故人の生きた証として扱います。</p>
-          <p>迷っているなら、何度でもご相談ください。</p>
+        <div class="representative__text">
+          <p class="mask-in">大阪府警察官として5年間勤務する中で、独居の方が亡くなった現場検証に何度も立ち会いました。</p>
+          <p class="mask-in">遺体が搬出された後に残された部屋。「この後の片付けは、誰がするのだろう」——その疑問から、遺品整理・特殊清掃という仕事の存在を知りました。</p>
+          <p class="mask-in">退職後、同業他社で3年間、現場責任者として経験を積みました。独立を前提に、徹底的に学びました。</p>
+          <p class="mask-in">しかし、そこで目の当たりにしたのは、格安で受注した回収物を不法投棄する業者の存在です。依頼者を騙し、環境を汚す。元警察官として、見過ごせませんでした。</p>
+          <p class="mask-in">曲がったことが嫌いな性分です。この業界を、もっとクリーンにしたい。屋号の「ハートフルクリーン」には、その決意を込めました。</p>
+          <p class="mask-in">私たちは、お客様に決断を急かしません。仕分けで迷われたら「決まったらご連絡ください」とお伝えします。「土足でいい」と言われても、必ず靴を脱ぎます。遺品の一つひとつを、故人の生きた証として扱います。</p>
+          <p class="mask-in">迷っているなら、何度でもご相談ください。</p>
         </div>
 
         <div class="representative__name fade-in">
@@ -2204,10 +2264,11 @@ body { padding-bottom: 72px; }
   </div>
 </section>
 
-<!-- ====== PROMISE (礼節とスピード) ====== -->
+<!-- ====== PROMISE (礼節とスピード・見出しなしで数字メイン) ====== -->
 <section class="promise">
   <div class="wrapper">
     <div class="promise__grid">
+      <p class="promise__lead reveal-up" aria-hidden="true">礼節とスピード。</p>
       <div class="promise__card reveal-up">
         <div class="promise__number">3<span class="promise__arrow">→</span>1<span class="promise__unit">日</span></div>
         <h3 class="promise__title">他社3日の現場を、1日で完了。</h3>
@@ -2608,7 +2669,7 @@ body { padding-bottom: 72px; }
 
     <div class="final-cta__buttons fade-in">
       <a href="tel:0742268496" class="btn btn--white">電話で相談する</a>
-      <a href="https://line.me/R/ti/p/@195brsjr" target="_blank" rel="noopener" class="btn btn--line">まずはLINEで状況を送るだけ</a>
+      <a href="https://line.me/R/ti/p/@195brsjr" target="_blank" rel="noopener" class="final-cta__line-link">状況をLINEで送るだけ</a>
     </div>
     <p class="microcopy fade-in" style="color:rgba(255,255,255,0.5);">※時間外も電話相談に対応できる場合がございます</p>
 
@@ -2645,7 +2706,7 @@ body { padding-bottom: 72px; }
 <!-- ====== FOOTER ====== -->
 <footer class="footer">
   <p class="footer__copy">&copy; 2026 ハートフルクリーン（株式会社和）All Rights Reserved.</p>
-  <p class="footer__pattern"><a href="index-b.html">モノクロ版（Bパターン）を見る</a></p>
+  <p class="footer__pattern"><a href="index-b.html">モノクロ版（Bパターン）</a> ｜ <a href="index-c.html">CVR特化版（Cパターン）</a></p>
 </footer>
 </main>
 
@@ -2725,9 +2786,9 @@ body { padding-bottom: 72px; }
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.fade-in:not(.visible), .reveal-up:not(.visible), .mask-in:not(.visible)').forEach(function(el) {
-      var parent = el.closest('.problem__list, .services__grid, .testimonials__grid, .faq__list, .reasons__grid, .flow__steps');
+      var parent = el.closest('.problem__list, .services__grid, .testimonials__grid, .faq__list, .reasons__grid, .flow__steps, .representative__text');
       if (parent) {
-        var siblings = Array.from(parent.querySelectorAll('.fade-in, .reveal-up'));
+        var siblings = Array.from(parent.querySelectorAll('.fade-in, .reveal-up, .mask-in'));
         var idx = siblings.indexOf(el);
         if (idx >= 0) el.dataset.delay = idx * 80;
       }
