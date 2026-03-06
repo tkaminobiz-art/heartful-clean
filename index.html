@@ -15,7 +15,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@400;500&family=Shippori+Mincho:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 <style>
 :root {
   /* 静寂モダン：アクセント1色（彩度を落とした緑） */
@@ -43,6 +43,8 @@
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --content-width: 960px;
   --side-padding: clamp(20px, 5vw, 64px);
+  --font-heading: 'Shippori Mincho', 'Noto Serif JP', serif;
+  --font-body: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -50,7 +52,7 @@
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
 body {
-  font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: clamp(15px, 1.1vw, 17px);
   line-height: 1.9;
@@ -60,6 +62,7 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-wrap: break-word;
   word-break: normal;
+  font-feature-settings: 'palt' 1;
 }
 
 img { max-width: 100%; height: auto; display: block; }
@@ -89,7 +92,7 @@ ul, ol { list-style: none; }
 }
 
 .section-heading {
-  font-family: 'Noto Serif JP', serif;
+  font-family: var(--font-heading);
   font-size: clamp(22px, 2.8vw, 32px);
   font-weight: 400;
   letter-spacing: 0.06em;
@@ -97,6 +100,7 @@ ul, ol { list-style: none; }
   color: var(--text);
   text-wrap: balance;
   word-break: auto-phrase;
+  margin-bottom: 48px;
 }
 
 .section-heading--light {
@@ -364,8 +368,8 @@ ul, ol { list-style: none; }
 /* ===== Scroll Animation ===== */
 .fade-in {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+  transform: translateY(16px);
+  transition: opacity 1200ms var(--ease), transform 1200ms var(--ease);
 }
 .fade-in.visible {
   opacity: 1;
@@ -374,8 +378,8 @@ ul, ol { list-style: none; }
 
 .reveal-up {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 800ms var(--ease), transform 800ms var(--ease);
+  transform: translateY(16px);
+  transition: opacity 1000ms var(--ease), transform 1000ms var(--ease);
 }
 .reveal-up.visible {
   opacity: 1;
@@ -570,12 +574,12 @@ ul, ol { list-style: none; }
 }
 
 .fv__heading-sub {
-  font-family: 'Noto Serif JP', serif;
+  font-family: var(--font-heading);
   font-size: clamp(20px, 2.5vw, 28px);
   font-weight: 400;
   letter-spacing: 0.06em;
   color: var(--text);
-  margin-top: -8px;
+  margin-top: 0;
   margin-bottom: 24px;
 }
 
@@ -612,8 +616,8 @@ ul, ol { list-style: none; }
 }
 .fv__badge--star {
   background: transparent;
-  border: 1px solid rgba(45,90,61,0.28);
-  color: var(--primary-dark);
+  border: 1px solid rgba(92, 107, 94, 0.3);
+  color: var(--accent-dark);
 }
 .fv__badge svg {
   width: 14px;
@@ -622,13 +626,13 @@ ul, ol { list-style: none; }
 }
 
 .fv__heading {
-  font-family: 'Noto Serif JP', serif;
-  font-size: clamp(30px, 5.5vw, 60px);
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 3.5vw, 44px);
   font-weight: 400;
   line-height: 1.25;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
   color: var(--text);
-  margin-bottom: 32px;
+  margin-bottom: 28px;
   text-wrap: balance;
   word-break: auto-phrase;
 }
@@ -710,7 +714,7 @@ ul, ol { list-style: none; }
 
 .problem__heading-area {
   text-align: center;
-  margin-bottom: clamp(40px, 5vw, 64px);
+  margin-bottom: 0;
 }
 
 .problem__list {
@@ -739,7 +743,7 @@ ul, ol { list-style: none; }
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  background: rgba(230, 126, 34, 0.12);
+  background: rgba(92, 107, 94, 0.12);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -775,7 +779,7 @@ ul, ol { list-style: none; }
 
 .reasons__heading-area {
   text-align: center;
-  margin-bottom: clamp(48px, 6vw, 80px);
+  margin-bottom: 0;
 }
 
 .reasons__grid {
@@ -859,7 +863,7 @@ ul, ol { list-style: none; }
 }
 
 .support__heading-area {
-  margin-bottom: 16px;
+  margin-bottom: 0;
   text-align: left;
 }
 .support__heading-area .section-label { display: block; }
@@ -954,7 +958,7 @@ ul, ol { list-style: none; }
 
 .services__heading-area {
   text-align: center;
-  margin-bottom: clamp(48px, 6vw, 80px);
+  margin-bottom: 0;
 }
 
 .services__grid {
@@ -1081,7 +1085,7 @@ ul, ol { list-style: none; }
 
 .pricing__heading-area {
   text-align: left;
-  margin-bottom: clamp(32px, 4vw, 48px);
+  margin-bottom: 0;
 }
 
 .pricing__summary {
@@ -1255,7 +1259,7 @@ ul, ol { list-style: none; }
 
 .flow__heading-area {
   text-align: center;
-  margin-bottom: clamp(48px, 6vw, 80px);
+  margin-bottom: 0;
 }
 
 .flow__steps {
@@ -1330,7 +1334,7 @@ ul, ol { list-style: none; }
 
 .testimonials__heading-area {
   text-align: center;
-  margin-bottom: clamp(48px, 6vw, 80px);
+  margin-bottom: 0;
 }
 
 /* Google風★：SVGで確実に表示（文字★は環境で消えることがある） */
@@ -1632,7 +1636,7 @@ ul, ol { list-style: none; }
 
 .faq__heading-area {
   text-align: center;
-  margin-bottom: clamp(48px, 6vw, 64px);
+  margin-bottom: 0;
 }
 
 .faq__list {
@@ -1828,7 +1832,7 @@ ul, ol { list-style: none; }
 
 .company__heading-area {
   text-align: center;
-  margin-bottom: clamp(40px, 5vw, 64px);
+  margin-bottom: 0;
 }
 
 .company__table-wrap {
@@ -2012,12 +2016,10 @@ body { padding-bottom: 72px; }
       <img src="ハートフルクリーンサイト画像/people/portrait-fujita.png" alt="代表・藤田宗一郎" loading="eager" fetchpriority="high" width="480" height="640">
     </div>
     <div class="fv__content">
-      <p class="fv__identity fade-in">元警察官が代表。奈良の遺品整理。</p>
-
       <h1 class="fv__heading mask-in">
-        見積り後の金額で、<br class="br-lg">その日じゅうに。
+        元警察官が行う<br class="br-lg">生前・遺品整理。
       </h1>
-      <p class="fv__heading-sub fade-in">追加請求は、ゼロ。</p>
+      <p class="fv__heading-sub fade-in">見積り後の金額で、その日じゅうに。追加請求は、ゼロ。</p>
 
       <p class="fv__sub fade-in">
         立ち会いが難しくても、その日に片づく。後から請求が増えることはありません。
