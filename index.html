@@ -538,62 +538,46 @@ ul, ol { list-style: none; }
 }
 
 /* ========================================
-   FIRST VIEW（全画面表示）
+   FIRST VIEW（2カラム：左＝代表写真、右＝コピー）
 ======================================== */
 .fv {
   position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
+  background: var(--bg);
   overflow: hidden;
 }
 
-.fv__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.fv__bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* ポートレートで顔が切れないよう左寄せ（人物は通常左側） */
-  object-position: 28% 50%;
-}
-
-/* 左に社長・右にテキスト：左は透過、右でテキスト可読に */
-.fv__overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 0.5;
-  background: linear-gradient(90deg, transparent 0%, rgba(250,250,248,0.15) 28%, rgba(250,250,248,0.6) 50%, rgba(250,250,248,0.96) 72%);
-  pointer-events: none;
-}
-
-.fv::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 60%;
-  height: 200%;
-  background: radial-gradient(ellipse, rgba(45,90,61,0.06) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0.6;
-}
-
-/* 左＝社長が見えるスペース、右＝テキスト */
 .fv__inner {
   display: grid;
-  grid-template-columns: 45fr 55fr;
-  gap: clamp(32px, 5vw, 80px);
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
   align-items: center;
   max-width: var(--content-width);
   margin: 0 auto;
-  padding: clamp(24px, 5vw, 48px) var(--side-padding);
+  padding: clamp(32px, 5vw, 64px) var(--side-padding);
   position: relative;
   z-index: 1;
+  width: 100%;
+}
+
+/* 左カラム：代表写真 */
+.fv__visual {
+  position: relative;
+  border-radius: var(--radius-card-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 3 / 4;
+  max-height: 80vh;
+}
+
+.fv__visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
 }
 
 .fv__identity {
@@ -707,52 +691,21 @@ ul, ol { list-style: none; }
   justify-content: center;
 }
 
-/* 全画面FVではビジュアル列はスペース確保のみ（画像は .fv__bg で表示） */
-.fv__visual .fv__hero-img {
-  display: none;
-}
-
-/* スマホのみ：画像を上部フル幅で表示（support セクションと同じ構成） */
-.fv__image-wrap {
-  display: none;
-}
-.fv__image-wrap img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
+/* スマホ：1カラムで画像を上に */
 @media (max-width: 768px) {
   .fv {
     min-height: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .fv__bg,
-  .fv__overlay {
-    display: none;
-  }
-  .fv__image-wrap {
-    display: block;
-    width: 100%;
-    line-height: 0;
-    order: -1;
+    padding: 0 0 clamp(48px, 8vw, 64px);
   }
   .fv__inner {
     grid-template-columns: 1fr;
     text-align: center;
-    flex: 0 0 auto;
-    width: 100%;
-    max-width: var(--content-width);
-    margin: 0 auto;
     padding: clamp(24px, 5vw, 48px) var(--side-padding);
   }
   .fv__visual {
-    display: none;
-  }
-  .fv__content {
-    order: 0;
+    order: -1;
+    max-height: 50vh;
+    aspect-ratio: 4 / 3;
   }
   .fv__badges { justify-content: center; }
   .fv__sub { margin-left: auto; margin-right: auto; }
@@ -1636,7 +1589,7 @@ ul, ol { list-style: none; }
 .representative__text p + p {
   margin-top: 16px;
 }
-.representative__text .mask-in { display: block; }
+.representative__text .fade-in { display: block; }
 
 .representative__signature-end {
   margin-top: 40px;
@@ -2047,7 +2000,7 @@ body { padding-bottom: 72px; }
 <header class="header">
   <div class="header__inner">
     <a href="#top" class="header__logo" aria-label="ハートフルクリーン トップへ">
-      <img src="./logo-header-transparent.png" alt="" width="160" height="48" loading="eager">
+      <img src="logo-header-transparent.png" alt="ハートフルクリーン" width="160" height="48" loading="eager" onerror="this.style.display='none'">
       <span class="header__logo-text">ハートフルクリーン</span>
     </a>
     <nav class="header__nav">
@@ -2066,16 +2019,11 @@ body { padding-bottom: 72px; }
   </div>
 </header>
 
-<!-- ====== FIRST VIEW ====== -->
+<!-- ====== FIRST VIEW（2カラム：左＝代表写真、右＝コピー） ====== -->
 <section class="fv" id="top">
-  <div class="fv__bg" aria-hidden="true"><img src="ハートフルクリーンサイト画像/people/portrait-fujita.png" alt="" loading="eager" fetchpriority="high"></div>
-  <div class="fv__overlay" aria-hidden="true"></div>
-  <div class="fv__image-wrap" aria-hidden="true">
-    <img src="ハートフルクリーンサイト画像/people/portrait-fujita.png" alt="代表・藤田" loading="eager" fetchpriority="high">
-  </div>
   <div class="fv__inner">
-    <div class="fv__visual fade-in" aria-hidden="true">
-      <!-- 左側：社長が映るスペース（画像は .fv__bg で表示） -->
+    <div class="fv__visual fade-in">
+      <img src="ハートフルクリーンサイト画像/people/portrait-fujita.png" alt="代表・藤田宗一郎" loading="eager" fetchpriority="high" width="480" height="640">
     </div>
     <div class="fv__content">
       <div class="fv__identity fade-in">
@@ -2221,13 +2169,13 @@ body { padding-bottom: 72px; }
         </div>
 
         <div class="representative__text">
-          <p class="mask-in">大阪府警察官として5年間勤務する中で、独居の方が亡くなった現場検証に何度も立ち会いました。</p>
-          <p class="mask-in">遺体が搬出された後に残された部屋。「この後の片付けは、誰がするのだろう」——その疑問から、遺品整理・特殊清掃という仕事の存在を知りました。</p>
-          <p class="mask-in">退職後、同業他社で3年間、現場責任者として経験を積みました。独立を前提に、徹底的に学びました。</p>
-          <p class="mask-in">しかし、そこで目の当たりにしたのは、格安で受注した回収物を不法投棄する業者の存在です。依頼者を騙し、環境を汚す。元警察官として、見過ごせませんでした。</p>
-          <p class="mask-in">曲がったことが嫌いな性分です。この業界を、もっとクリーンにしたい。屋号の「ハートフルクリーン」には、その決意を込めました。</p>
-          <p class="mask-in">私たちは、お客様に決断を急かしません。仕分けで迷われたら「決まったらご連絡ください」とお伝えします。「土足でいい」と言われても、必ず靴を脱ぎます。遺品の一つひとつを、故人の生きた証として扱います。</p>
-          <p class="mask-in">迷っているなら、何度でもご相談ください。</p>
+          <p class="fade-in">大阪府警察官として5年間勤務する中で、独居の方が亡くなった現場検証に何度も立ち会いました。</p>
+          <p class="fade-in">遺体が搬出された後に残された部屋。「この後の片付けは、誰がするのだろう」——その疑問から、遺品整理・特殊清掃という仕事の存在を知りました。</p>
+          <p class="fade-in">退職後、同業他社で3年間、現場責任者として経験を積みました。独立を前提に、徹底的に学びました。</p>
+          <p class="fade-in">しかし、そこで目の当たりにしたのは、格安で受注した回収物を不法投棄する業者の存在です。依頼者を騙し、環境を汚す。元警察官として、見過ごせませんでした。</p>
+          <p class="fade-in">曲がったことが嫌いな性分です。この業界を、もっとクリーンにしたい。屋号の「ハートフルクリーン」には、その決意を込めました。</p>
+          <p class="fade-in">私たちは、お客様に決断を急かしません。仕分けで迷われたら「決まったらご連絡ください」とお伝えします。「土足でいい」と言われても、必ず靴を脱ぎます。遺品の一つひとつを、故人の生きた証として扱います。</p>
+          <p class="fade-in">迷っているなら、何度でもご相談ください。</p>
         </div>
 
         <p class="representative__signature-end fade-in">代表 藤田 宗一郎</p>
@@ -2832,7 +2780,6 @@ body { padding-bottom: 72px; }
 
   var floating = document.getElementById('floatingCta');
   var header = document.querySelector('.header');
-  var fvBg = document.querySelector('.fv__bg');
 
   window.addEventListener('scroll', function() {
     var y = window.scrollY;
@@ -2845,10 +2792,6 @@ body { padding-bottom: 72px; }
     }
     if (header) {
       header.classList.toggle('is-scrolled', y > 60);
-    }
-    if (fvBg && !prefersReduced) {
-      var parallax = Math.min(y * 0.22, 100);
-      fvBg.style.transform = 'translateY(' + parallax + 'px)';
     }
   }, { passive: true });
   if (floating) {
